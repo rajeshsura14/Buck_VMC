@@ -65,14 +65,14 @@ void ADC_Samp_Conv(void)
 	ANSELAbits.ANSA0 = 1;
 	TRISAbits.TRISA1 = 1;		/* AN1/RA1 configured for VBatt_Sense */
 	ANSELAbits.ANSA1 = 1;
-	TRISBbits.TRISB0 = 1;		/* AN3/RB0 Configured for IBatt_SR_Sense */
+	TRISAbits.TRISA2 = 1;		/* AN2/RA2 Configured for IBatt_SR_Sense */
+	ANSELAbits.ANSA2 = 1;
+	TRISBbits.TRISB0 = 1;		/* AN3/RB0 Configured for V_DC_Link_sense */
 	ANSELBbits.ANSB0 = 1;
-	TRISCbits.TRISC9 = 1;		/* AN11/RC9 Configured for V_DC_Link_sense */
-	ANSELCbits.ANSC9 = 1;
-	TRISDbits.TRISD2 = 1;		/* AN16/RD2 Configured for Mains_Sense */
-	ANSELDbits.ANSD2 = 1;
-	ANSELCbits.ANSC12 = 1;
-	_TRISC12 = 1;				/* AN14 Configured for Temperature Sense */
+	TRISBbits.TRISB9 = 1;		/* AN4/RB9 Configured for Mains_Sense */
+	ANSELBbits.ANSB9 = 1;
+	
+	
 
 	/* Configure the common ADC clock. */
 	ADCON3Hbits.CLKSEL = 1;		/* clock from Fosc */
@@ -102,21 +102,21 @@ void ADC_Samp_Conv(void)
 	ADMOD0Lbits.DIFF0 = 0;		/* AN0/RA0 */
 
 	/* Set the input channel to the core */
-	_C0CHS = 1; /* Dedicated ADC core 0 Input channel is AN0 */
+	ADCON4Hbits.C0CHS = 1; /* Dedicated ADC core 0 Input channel is AN0 */
 
 	/*
-	 * ADC INITIALIZATION for AN11 ;
+	 * ADC INITIALIZATION for AN2 ;
 	 * Configure the cores? ADC clock
 	 */
 	ADCORE2Hbits.ADCS = 0;		/* clock divider (1:2) */
 	ADCORE2Hbits.RES = 3;		/* 12 bit resolution */
 
 	/* Select single-ended input configuration and unsigned output format. */
-	ADMOD0Hbits.SIGN11 = 0;		/* AN11/RC9 */
-	ADMOD0Hbits.DIFF11 = 0;		/* AN11/RC9 */
+	ADMOD0Lbits.SIGN2 = 0;		/* AN11/RC9 */
+	ADMOD0Lbits.DIFF2 = 0;		/* AN11/RC9 */
 
 	/* Set the Input channel to the core */
-	ADCON4Hbits.C2CHS = 0b01;	/* Dedicated ADC Core 2 Input Channel IS AN11 */
+	ADCON4Hbits.C2CHS = 0b00;	/* Dedicated ADC Core 2 Input Channel IS AN2 */
 
 	/*
 	 * ADC INITIALIZATION for AN1 ;
@@ -153,28 +153,26 @@ void ADC_Samp_Conv(void)
 	 * Configure and enable ADC interrupts.
 	 */
 	ADIELbits.IE0 = 0;			/* enable interrupt for AN0 */
-	_ADCAN0IF = 0;		/* clear interrupt flag for AN0 */
-	_ADCAN0IE = 0;		/* clear interrupt flag for */
+	_ADCAN0IF = 0;		        /* clear interrupt flag for AN0 */
+	_ADCAN0IE = 0;              /* clear interrupt flag for */
 
 	/* Configure and enable ADC interrupts. */
-	ADIELbits.IE1 = 0;	/* enable interrupt for AN1 */
-	_ADCAN1IF = 0;		/* clear interrupt flag for AN1 */
-	_ADCAN1IE = 0;		/* clear interrupt flag for AN1 */
+	ADIELbits.IE1 = 0;          /* enable interrupt for AN1 */
+	_ADCAN1IF = 0;              /* clear interrupt flag for AN1 */
+	_ADCAN1IE = 0;              /* clear interrupt flag for AN1 */
 
 	/* Configure and enable ADC interrupts. */
-	ADIELbits.IE2 = 0;	/* enable interrupt for AN11 */
-	_ADCAN2IF = 0;		/* clear interrupt flag for AN11 */
-	_ADCAN2IE = 0;		/* clear interrupt flag for AN11 */
+	ADIELbits.IE2 = 0;          /* enable interrupt for AN11 */
+	_ADCAN2IF = 0;              /* clear interrupt flag for AN11 */
+	_ADCAN2IE = 0;              /* clear interrupt flag for AN11 */
 
 	/* Configure and enable ADC interrupts. */
-	ADIELbits.IE3 = 1;	/* enable interrupt for AN3 */
-	_ADCAN3IF = 0;		/* clear interrupt flag for AN3 */
-	_ADCAN3IE = 1;		/* clear interrupt flag for AN3 */
+	ADIELbits.IE3 = 1;          /* enable interrupt for AN3 */
+	_ADCAN3IF = 0;              /* clear interrupt flag for AN3 */
+	_ADCAN3IE = 1;              /* clear interrupt flag for AN3 */
 	_ADCAN3IP = 7;
 
-//	ADIEHbits.IE16 = 1; /* enable interrupt for AN3 */
-//	_ADCAN16IF = 0;		/* clear interrupt flag for AN3 */
-//	_ADCAN16IE = 1;		/* clear interrupt flag for AN3 */
+
 
 	/*
 	 * Setting trigger sources for all cores ;
@@ -185,9 +183,8 @@ void ADC_Samp_Conv(void)
 	ADTRIG0Lbits.TRGSRC1 = 7;	/* PWM Generator 3 primary trigger for Core1 */
 	ADTRIG0Hbits.TRGSRC2 = 7;	/* PWM Generator 3 primary trigger for Core2 */
 	ADTRIG0Hbits.TRGSRC3 = 7;	/* PWM Generator 3 primary trigger for Core3 */
-
-	ADTRIG4Lbits.TRGSRC16 = 17; /* PWM Generator 3 primary trigger for Shared Core */
-	_ADCAN16IP = 6;
+	ADTRIG1Lbits.TRGSRC4= 17;   /* PWM Generator 3 primary trigger for Shared Core */
+	_ADCAN4IP = 6;
 }
 
 /*
