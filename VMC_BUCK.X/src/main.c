@@ -57,10 +57,10 @@ int main(void)
 {
 	Init_OSC();
 	Init_GPIO();
+    Init_PWM();
+    Init_ADC();
 	//Init_TIMER();
-	//Init_PWM();
 	//Init_UART();
-	//Init_ADC();
 	//Init_LCD();
 	while(1)
 	{		

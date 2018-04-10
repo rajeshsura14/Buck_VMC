@@ -1,4 +1,4 @@
-/*$T indentinput.c GC 1.140 12/13/17 19:43:17 */
+/*$T indentinput.c GC 1.140 04/09/18 10:45:00 */
 
 /*
  * Title : Filename : Author : Rajesh Sura Origin Date : 07/12/2017 Version :
@@ -23,7 +23,6 @@
  * Includes
  */
 #include <xc.h> /* include processor files - each processor file is guarded. */
-#include "globalvariables.h"
 #include "init_pwm.h"
 
 /*
@@ -61,146 +60,59 @@ int Init_PWM(void)
 	while(ACLKCONbits.APLLCK != 1);
 	__delay_us(50);
 
+    PTCON2bits.PCLKDIV = 0;         /* Choose divide ratio of 1:1, which affects all PWM timing operations*/
+    IOCON3 = 0;
 	/* PRIMARY PWM module initialization */
 	PWMCON3bits.ITB = CLEAR;		/* PTPER/STPER registers provide timing for this PWM generator */
-	PWMCON3bits.MDCS = CLEAR;		/* MDC register provides duty cycle information for this PWM generator */
-	PWMCON3bits.DTC = 0b00;		/* Positive dead time is actively applied for all output modes */
+	PWMCON3bits.MDCS = CLEAR;		/* PDCx and SDCx registers provide duty cycle information for this PWMx generator */
+	PWMCON3bits.DTC = 0b00;		    /* Positive dead time is actively applied for all output modes */
 	PWMCON3bits.MTBS = CLEAR;		/* PWM generator uses primary master time base for synchro and as the clock source
 									 * for the PWM generation logic */
 	PWMCON3bits.CAM = CLEAR;		/* Edge-Aligned mode is enabled */
 	PWMCON3bits.IUE = CLEAR;		/* Updates to the active MDC/PDCx/SDCx/PHASEx/SPHASEx registers are synchronized to
 									 * the local PWM time base */
-
 	IOCON3bits.POLH = CLEAR;		/* PWMxH pin is active-high */
 	IOCON3bits.POLL = CLEAR;		/* PWMxL pin is active-high */
-
-	/*
-	 * IOCON3bits.PMOD = 0b00;
-	 * PWM I/O pin pair is in the Complementary PWM Output mode
-	 */
-	IOCON3bits.PMOD = 0b10;		/* PWM I/O pin pair is in the Push-Pull PWM Output mode */
-
-	/*
-	 * IOCON3bits.OVRENH = CLEAR;
-	 * PWM generator provides data for the PWMxH pin
-	 */
+	IOCON3bits.PMOD = 0b00;         /*PWM I/O pin pair is in the Complementary PWM Output mode*/
+	 
 	FCLCON3bits.FLTMOD = 0b11;		/* Fault input is disabled */
-	ALTDTR3 = DEADT_nSEC_COUNTS;	/* Deadtime value is 750nSEC */
-	DTR3 = DEADT_nSEC_COUNTS;		/* Deadtime value is 750nSEC */
-
-	PWMCON5bits.ITB = CLEAR;		/* PTPER/STPER registers provide timing for this PWM generator */
-	PWMCON5bits.MDCS = CLEAR;		/* MDC register provides duty cycle information for this PWM generator */
-	PWMCON5bits.DTC = 0b00;		/* Positive dead time is actively applied for all output modes */
-	PWMCON5bits.MTBS = CLEAR;		/* PWM generator uses primary master time base for synchro and as the clock source
-									 * for the PWM generation logic */
-	PWMCON5bits.CAM = CLEAR;		/* Edge-Aligned mode is enabled */
-	PWMCON5bits.IUE = CLEAR;		/* Updates to the active MDC/PDCx/SDCx/PHASEx/SPHASEx registers are synchronized to
-									 * the local PWM time base */
-
-	IOCON5bits.POLH = CLEAR;		/* PWMxH pin is active-high */
-	IOCON5bits.POLL = CLEAR;		/* PWMxL pin is active-high */
-
-	/*
-	 * IOCON5bits.PMOD = 0b00;
-	 * PWM I/O pin pair is in the Complementary PWM Output mode
-	 */
-	IOCON5bits.PMOD = 0b10;		/* PWM I/O pin pair is in the Push-Pull Output mode */
-
-	/*
-	 * IOCON5bits.OVRENH = CLEAR;
-	 * PWM generator provides data for the PWMxH pin
-	 */
-	FCLCON5bits.FLTMOD = 0b11;		/* Fault input is disabled */
-	ALTDTR5 = DEADT_nSEC_COUNTS;	/* Deadtime value is 750nSEC */
-	DTR5 = DEADT_nSEC_COUNTS;		/* Deadtime value is 750nSEC */
-
-	/*
-	 * SECONDARY SIDE PWM CONTROL ;
-	 * Configuring PWM1 pins as GPIO pins
-	 */
-	IOCON1 = 0;
+	ALTDTR3 = DEADT_COUNTS;         /* Deadtime value is  */
+	DTR3 = DEADT_COUNTS;            /* Deadtime value is  */
 
 	PTPER = PTPERVALUE;
-
-	/*
-	 * PDC2 = PTPER;
-	 */
-	PDC3 = 100;			/* 5424;
-						 * //PTPER*0.34;
-						 * */
-	PDC5 = 100;			/* 5424;
-						 * - */
-	PDC2 = 5000;
+	PDC3 = 100;								 					 
 
 	TRGCON3bits.TRGSTRT = 2;
 	TRGCON3bits.TRGDIV = 1;
 
-	/*
-	 * MDC= 2467;
-	 */
-	PHASE3 = PTPER;		/* left leg */
+	PHASE3 = PTPER;		
 	TRIG3 = PDC3 >> 1;	/* ADCAN3 trigger point */
-	PHASE5 = 0;			/* right */
 
-	/* PWM3 current limit mode configuration */
-	FCLCON3bits.IFLTMOD = 0;		/* Normal Fault mode: Current-Limit mode maps CLDAT<1:0> bits to the PWMxH and
-									 * PWMxL
-									 * outputs;
-									 * the PWM Fault mode maps FLTDAT<1:0> to the PWMxH and PWMxL outputs */
-	FCLCON3bits.FLTSRC = 0b00000;	/* FLT is diabled */
-	FCLCON3bits.CLSRC = 0;			
-								    /* Current-limit input source is Analog Comparator 2 */
-	FCLCON3bits.CLPOL = 0;			/* Current-limit source is active-low */
-	FCLCON3bits.CLMOD = 0;			/* Enable current-limit function */
-	FCLCON3bits.FLTMOD = 3;			/* Enable Cycle-by-Cycle Fault mode */
-	IOCON3bits.CLDAT = 0b00;		/* PWMxH and PWMxL are driven inactive on occurrence of current-limit */
+//	/* PWM3 current limit mode configuration */
+//	FCLCON3bits.IFLTMOD = 0;		/* Normal Fault mode: Current-Limit mode maps CLDAT<1:0> bits to the PWMxH and
+//									 * PWMxL
+//									 * outputs;
+//									 * the PWM Fault mode maps FLTDAT<1:0> to the PWMxH and PWMxL outputs */
+//	FCLCON3bits.FLTSRC = 0b00000;	/* FLT is diabled */
+//	FCLCON3bits.CLSRC = 0;			
+//								    /* Current-limit input source is Analog Comparator 2 */
+//	FCLCON3bits.CLPOL = 0;			/* Current-limit source is active-low */
+//	FCLCON3bits.CLMOD = 0;			/* Enable current-limit function */
+//	FCLCON3bits.FLTMOD = 3;			/* Enable Cycle-by-Cycle Fault mode */
+//	IOCON3bits.CLDAT = 0b00;		/* PWMxH and PWMxL are driven inactive on occurrence of current-limit */
+//
+//	
+//	LEBCON3 = 0xA400;
+//	LEBDLY3 = 1000;
 
-	/*
-	 * LEBCON3 -->
-	 * PHR,PHF,PLR,PLF,FLTLEBEN,CLLEBEN,X,X,X,X,BCH,BCL,BPHH,BPHL,BPLH,BPLL ;
-	 * LEBDLY3 = X,X,X,X,LEB<8:0>,X,X,X ;
-	 * LEBCON3bits.PHR = 1;
-	 * * LEBCON3bits.CLLEBEN = 1;
-	 */
-	LEBCON3 = 0xA400;
-	LEBDLY3 = 1000;
-
-	/* PWM5 current limit mode configuration */
-	FCLCON5bits.IFLTMOD = 0;		/* Normal Fault mode: Current-Limit mode maps CLDAT<1:0> bits to the PWMxH and
-									 * PWMxL
-									 * outputs;
-									 * the PWM Fault mode maps FLTDAT<1:0> to the PWMxH and PWMxL outputs */
-	FCLCON5bits.FLTSRC = 0b00000;	/* Current-limit input source is Analog Comparator 2 */
-	FCLCON5bits.CLSRC = 0;			/* 0b01110;
-									 * */
-	FCLCON5bits.CLPOL = 0;			/* Current-limit source is active-low */
-	FCLCON5bits.CLMOD = 0;			
-								    /* Enable current-limit function */
-	FCLCON5bits.FLTMOD = 3;			/* Enable Cycle-by-Cycle Fault mode */
-	IOCON5bits.CLDAT = 0b00;		/* PWMxH and PWMxL are driven inactive on occurrence of current-limit */
-
-	/*
-	 * LEBCON5 -->
-	 * PHR,PHF,PLR,PLF,FLTLEBEN,CLLEBEN,X,X,X,X,BCH,BCL,BPHH,BPHL,BPLH,BPLL ;
-	 * LEBDLY5 = X,X,X,X,LEB<8:0>,X,X,X ;
-	 * LEBCON5bits.PHR = 1;
-	 * * LEBCON5bits.CLLEBEN = 1;
-	 */
-	LEBCON5 = 0xA400;
-	LEBDLY5 = 1000;			/* Delay ~1.04us */
 
 	/* Errata #7 work around */
 	IOCON3bits.PENH = 0;	/* Assign pin ownership of PWM3H/RA4 to GPIO module */
 	IOCON3bits.PENL = 0;	/* Assign pin ownership of PWM3L/RA3 to GPIO module */
-	IOCON5bits.PENH = 0;	/* Assign pin ownership of PWM5H/RA4 to GPIO module */
-	IOCON5bits.PENL = 0;	/* Assign pin ownership of PWM5L/RA3 to GPIO module */
-
+	
 	IOCON3bits.OVRDAT = 0;	/* Configure PWM outputs override state to the desired safe state */
 	IOCON3bits.OVRENH = 1;	/* Override PWM3H output */
 	IOCON3bits.OVRENL = 1;	/* Override PWM3L output */
-	IOCON5bits.OVRDAT = 0;	/* Configure PWM outputs override state to the desired safe state */
-	IOCON5bits.OVRENH = 1;	/* Override PWM5H output */
-	IOCON5bits.OVRENL = 1;	/* Override PWM5L output */
 
 	PTCONbits.PTEN = 1;		/* Enable PWM module */
 
@@ -208,13 +120,10 @@ int Init_PWM(void)
 
 	IOCON3bits.OVRENH = 0;	/* Remove override for PWM3H output */
 	IOCON3bits.OVRENL = 0;	/* Remove override for PWM3L output */
-	IOCON5bits.OVRENH = 0;	/* Remove override for PWM5H output */
-	IOCON5bits.OVRENL = 0;	/* Remove override for PWM5L output */
-
+	
 	IOCON3bits.PENH = 1;	/* Assign pin ownership of PWM3H/RA4 to PWM module */
 	IOCON3bits.PENL = 1;	/* Assign pin ownership of PWM3L/RA3 to PWM module */
-	IOCON5bits.PENH = 1;	/* Assign pin ownership of PWM5H/RA4 to PWM module */
-	IOCON5bits.PENL = 1;	/* Assign pin ownership of PWM5L/RA3 to PWM module */
+	
 
 	return 0;
 }

@@ -41,6 +41,7 @@
 * Includes
 *******************************************************************************/
 #include <xc.h> // include processor files - each processor file is guarded.
+#define FOSC       120000000UL         /*This is the desired value of Fpll*/
 #define FCY         60000000UL
 #include <libpic30.h>
 
@@ -50,18 +51,13 @@
 
 #define CLEAR 0
 #define SET 1
-#define SWITCH_FREQUENCY 50000
-#define INDUCTOR_FREQUENCY (2*SWITCH_FREQUENCY)
-#define ACLK 117920000
-#define DUTY (4500*8*7.37*16/1000)
-#define PTPERVALUE (8*ACLK/1)/INDUCTOR_FREQUENCY
+#define SWITCH_FREQUENCY 100000
+#define ACLK 119760000
+#define PTPERVALUE (int)((8*ACLK/1)/SWITCH_FREQUENCY)
 
-//Dead time
-#define DEADT_nSEC 1500
-#define DEADT_nSEC_COUNTS (DEADT_nSEC*8*7.37*16/1000)
-// Dead time for diode
-#define DEADT_nSEC_DIODE 300
-#define DEADT_nSEC_COUNTS_DIODE (DEADT_nSEC_DIODE*8*7.37*16/1000)
+//Dead time parameters
+#define DEADT_PERCENT 2
+#define DEADT_COUNTS  (int)((DEADT_PERCENT/100)*PTPERVALUE)
 
 
 /******************************************************************************

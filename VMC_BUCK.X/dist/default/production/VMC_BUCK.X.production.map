@@ -94,12 +94,12 @@ Program Memory  [Origin = 0x200, Length = 0x2980]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x108           0x18c  (396)
-.text                        0x308               0x468           0x69c  (1692)
-.init.delay32                0x770                0x1c            0x2a  (42)
-.dinit                       0x78c                0x16            0x21  (33)
-.text                        0x7a2                 0x8             0xc  (12)
+.text                        0x308               0x3bc           0x59a  (1434)
+.init.delay32                0x6c4                0x1c            0x2a  (42)
+.dinit                       0x6e0                0x16            0x21  (33)
+.text                        0x6f6                 0xc            0x12  (18)
 
-                 Total program memory used (bytes):          0x87f  (2175) 13%
+                 Total program memory used (bytes):          0x783  (1923) 12%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0x1fc]
@@ -260,35 +260,35 @@ External Symbols in Program Memory (by address):
                   0x000302                  __DefaultInterrupt
                   0x000308                  _Init_ADC
                   0x000310                  _ADC_Samp_Conv
-                  0x000440                  _EnableAndCalibrate
-                  0x000504                  _Init_PWM
-                  0x00064a                  _Init_UART
-                  0x0006a2                  _Init_OSC
-                  0x0006f8                  _Init_GPIO
-                  0x000746                  _Init_TIMER
-                  0x000770                  ___delay32
-                  0x0007a2                  _main
+                  0x00043a                  _EnableAndCalibrate
+                  0x0004fe                  _Init_PWM
+                  0x00059e                  _Init_UART
+                  0x0005f6                  _Init_OSC
+                  0x00064c                  _Init_GPIO
+                  0x00069a                  _Init_TIMER
+                  0x0006c4                  ___delay32
+                  0x0006f6                  _main
                   0x002b80                  __FSEC.sec
 
 External Symbols in Program Memory (by name):
 
                   0x000310                  _ADC_Samp_Conv
-                  0x000440                  _EnableAndCalibrate
+                  0x00043a                  _EnableAndCalibrate
                   0x000308                  _Init_ADC
-                  0x0006f8                  _Init_GPIO
-                  0x0006a2                  _Init_OSC
-                  0x000504                  _Init_PWM
-                  0x000746                  _Init_TIMER
-                  0x00064a                  _Init_UART
+                  0x00064c                  _Init_GPIO
+                  0x0005f6                  _Init_OSC
+                  0x0004fe                  _Init_PWM
+                  0x00069a                  _Init_TIMER
+                  0x00059e                  _Init_UART
                   0x0002fa                  __ADCAN3Interrupt
                   0x000302                  __DefaultInterrupt
                   0x002b80                  __FSEC.sec
-                  0x000770                  ___delay32
+                  0x0006c4                  ___delay32
                   0x000248                  __data_init
                   0x000248                  __data_init_extended
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0007a2                  _main
+                  0x0006f6                  _main
 
 Memory Configuration
 
@@ -414,7 +414,7 @@ __FALTREG
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x7e02
+.debug_info       0x000000       0x6f3d
  *(.debug_info)
  .debug_info      0x000000        0x156 build/default/production/src/lcd_display.o
  .debug_info      0x000156        0x185 build/default/production/src/main.o
@@ -422,12 +422,12 @@ __FALTREG
  .debug_info      0x000e55        0x15c build/default/production/src/configurationbits.o
  .debug_info      0x000fb1        0x162 build/default/production/src/lcd.o
  .debug_info      0x001113       0x10cf build/default/production/src/init_uart.o
- .debug_info      0x0021e2       0x329b build/default/production/src/init_adc.o
- .debug_info      0x00547d        0x554 build/default/production/src/init_osc.o
- .debug_info      0x0059d1       0x13fa build/default/production/src/init_pwm.o
- .debug_info      0x006dcb        0x77e build/default/production/src/init_timer.o
- .debug_info      0x007549        0x75d build/default/production/src/init_gpio.o
- .debug_info      0x007ca6        0x15c build/default/production/src/C_source_template.o
+ .debug_info      0x0021e2       0x29fa build/default/production/src/init_adc.o
+ .debug_info      0x004bdc        0x554 build/default/production/src/init_osc.o
+ .debug_info      0x005130        0xdd6 build/default/production/src/init_pwm.o
+ .debug_info      0x005f06        0x77e build/default/production/src/init_timer.o
+ .debug_info      0x006684        0x75d build/default/production/src/init_gpio.o
+ .debug_info      0x006de1        0x15c build/default/production/src/C_source_template.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x5eb
@@ -445,20 +445,20 @@ __FALTREG
  .debug_abbrev    0x000542         0x8a build/default/production/src/init_gpio.o
  .debug_abbrev    0x0005cc         0x1f build/default/production/src/C_source_template.o
 
-.debug_line       0x000000        0x858
+.debug_line       0x000000        0x82d
  *(.debug_line)
  .debug_line      0x000000         0x1a build/default/production/src/lcd_display.o
- .debug_line      0x00001a         0x3a build/default/production/src/main.o
- .debug_line      0x000054        0x100 build/default/production/src/control.o
- .debug_line      0x000154         0x1a build/default/production/src/configurationbits.o
- .debug_line      0x00016e         0x27 build/default/production/src/lcd.o
- .debug_line      0x000195        0x104 build/default/production/src/init_uart.o
- .debug_line      0x000299        0x15f build/default/production/src/init_adc.o
+ .debug_line      0x00001a         0x3c build/default/production/src/main.o
+ .debug_line      0x000056        0x100 build/default/production/src/control.o
+ .debug_line      0x000156         0x1a build/default/production/src/configurationbits.o
+ .debug_line      0x000170         0x27 build/default/production/src/lcd.o
+ .debug_line      0x000197        0x104 build/default/production/src/init_uart.o
+ .debug_line      0x00029b        0x15d build/default/production/src/init_adc.o
  .debug_line      0x0003f8         0xf9 build/default/production/src/init_osc.o
- .debug_line      0x0004f1        0x144 build/default/production/src/init_pwm.o
- .debug_line      0x000635         0xfc build/default/production/src/init_timer.o
- .debug_line      0x000731        0x10d build/default/production/src/init_gpio.o
- .debug_line      0x00083e         0x1a build/default/production/src/C_source_template.o
+ .debug_line      0x0004f1        0x119 build/default/production/src/init_pwm.o
+ .debug_line      0x00060a         0xfc build/default/production/src/init_timer.o
+ .debug_line      0x000706        0x10d build/default/production/src/init_gpio.o
+ .debug_line      0x000813         0x1a build/default/production/src/C_source_template.o
 
 .debug_frame      0x000000        0x1b8
  *(.debug_frame)
@@ -471,15 +471,15 @@ __FALTREG
  .debug_frame     0x000158         0x30 build/default/production/src/init_timer.o
  .debug_frame     0x000188         0x30 build/default/production/src/init_gpio.o
 
-.debug_str        0x000000        0x325
+.debug_str        0x000000        0x2cd
  *(.debug_str)
  .debug_str       0x000000          0x9 build/default/production/src/control.o
  .debug_str       0x000009         0x5a build/default/production/src/init_uart.o
- .debug_str       0x000063        0x1ea build/default/production/src/init_adc.o
- .debug_str       0x00024d         0x16 build/default/production/src/init_osc.o
- .debug_str       0x000263         0x68 build/default/production/src/init_pwm.o
- .debug_str       0x0002cb         0x25 build/default/production/src/init_timer.o
- .debug_str       0x0002f0         0x35 build/default/production/src/init_gpio.o
+ .debug_str       0x000063        0x1aa build/default/production/src/init_adc.o
+ .debug_str       0x00020d         0x16 build/default/production/src/init_osc.o
+ .debug_str       0x000223         0x50 build/default/production/src/init_pwm.o
+ .debug_str       0x000273         0x25 build/default/production/src/init_timer.o
+ .debug_str       0x000298         0x35 build/default/production/src/init_gpio.o
 
 .debug_loc
  *(.debug_loc)
@@ -1874,7 +1874,7 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x0000c0        0xa03
+                  0x0000c0        0x8fb
  .debug_pubtypes
                   0x0000c0         0x12 build/default/production/src/lcd_display.o
  .debug_pubtypes
@@ -1888,50 +1888,50 @@ LOAD data_init
  .debug_pubtypes
                   0x000173        0x136 build/default/production/src/init_uart.o
  .debug_pubtypes
-                  0x0002a9        0x500 build/default/production/src/init_adc.o
+                  0x0002a9        0x43e build/default/production/src/init_adc.o
  .debug_pubtypes
-                  0x0007a9         0x61 build/default/production/src/init_osc.o
+                  0x0006e7         0x61 build/default/production/src/init_osc.o
  .debug_pubtypes
-                  0x00080a        0x152 build/default/production/src/init_pwm.o
+                  0x000748        0x10c build/default/production/src/init_pwm.o
  .debug_pubtypes
-                  0x00095c         0x95 build/default/production/src/init_timer.o
+                  0x000854         0x95 build/default/production/src/init_timer.o
  .debug_pubtypes
-                  0x0009f1         0xc0 build/default/production/src/init_gpio.o
+                  0x0008e9         0xc0 build/default/production/src/init_gpio.o
  .debug_pubtypes
-                  0x000ab1         0x12 build/default/production/src/C_source_template.o
+                  0x0009a9         0x12 build/default/production/src/C_source_template.o
 
 __c30_signature
-                  0x000ac3         0x5a
+                  0x0009bb         0x5a
  __c30_signature
-                  0x000ac3          0x6 build/default/production/src/lcd_display.o
+                  0x0009bb          0x6 build/default/production/src/lcd_display.o
  __c30_signature
-                  0x000ac9          0x6 build/default/production/src/main.o
+                  0x0009c1          0x6 build/default/production/src/main.o
  __c30_signature
-                  0x000acf          0x6 build/default/production/src/control.o
+                  0x0009c7          0x6 build/default/production/src/control.o
  __c30_signature
-                  0x000ad5          0x6 build/default/production/src/configurationbits.o
+                  0x0009cd          0x6 build/default/production/src/configurationbits.o
  __c30_signature
-                  0x000adb          0x6 build/default/production/src/lcd.o
+                  0x0009d3          0x6 build/default/production/src/lcd.o
  __c30_signature
-                  0x000ae1          0x6 build/default/production/src/init_uart.o
+                  0x0009d9          0x6 build/default/production/src/init_uart.o
  __c30_signature
-                  0x000ae7          0x6 build/default/production/src/init_adc.o
+                  0x0009df          0x6 build/default/production/src/init_adc.o
  __c30_signature
-                  0x000aed          0x6 build/default/production/src/init_osc.o
+                  0x0009e5          0x6 build/default/production/src/init_osc.o
  __c30_signature
-                  0x000af3          0x6 build/default/production/src/init_pwm.o
+                  0x0009eb          0x6 build/default/production/src/init_pwm.o
  __c30_signature
-                  0x000af9          0x6 build/default/production/src/init_timer.o
+                  0x0009f1          0x6 build/default/production/src/init_timer.o
  __c30_signature
-                  0x000aff          0x6 build/default/production/src/init_gpio.o
+                  0x0009f7          0x6 build/default/production/src/init_gpio.o
  __c30_signature
-                  0x000b05          0x6 build/default/production/src/C_source_template.o
+                  0x0009fd          0x6 build/default/production/src/C_source_template.o
  __c30_signature
-                  0x000b0b          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
+                  0x000a03          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
  __c30_signature
-                  0x000b11          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extended.o)
+                  0x000a09          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extended.o)
  __c30_signature
-                  0x000b17          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x000a0f          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
 
 .nbss               0x1000         0x6e
  .nbss              0x1000         0x6e build/default/production/src/control.o
@@ -2027,29 +2027,29 @@ __c30_signature
 .config_BSLIM     0x002b90          0x2
  .config_BSLIM    0x002b90          0x2 build/default/production/src/configurationbits.o
 
-.text             0x000308        0x468
- .text            0x000308        0x1fc build/default/production/src/init_adc.o
+.text             0x000308        0x3bc
+ .text            0x000308        0x1f6 build/default/production/src/init_adc.o
                   0x000308                  _Init_ADC
                   0x000310                  _ADC_Samp_Conv
-                  0x000440                  _EnableAndCalibrate
- .text            0x000504        0x146 build/default/production/src/init_pwm.o
-                  0x000504                  _Init_PWM
- .text            0x00064a         0x58 build/default/production/src/init_uart.o
-                  0x00064a                  _Init_UART
- .text            0x0006a2         0x56 build/default/production/src/init_osc.o
-                  0x0006a2                  _Init_OSC
- .text            0x0006f8         0x4e build/default/production/src/init_gpio.o
-                  0x0006f8                  _Init_GPIO
- .text            0x000746         0x2a build/default/production/src/init_timer.o
-                  0x000746                  _Init_TIMER
+                  0x00043a                  _EnableAndCalibrate
+ .text            0x0004fe         0xa0 build/default/production/src/init_pwm.o
+                  0x0004fe                  _Init_PWM
+ .text            0x00059e         0x58 build/default/production/src/init_uart.o
+                  0x00059e                  _Init_UART
+ .text            0x0005f6         0x56 build/default/production/src/init_osc.o
+                  0x0005f6                  _Init_OSC
+ .text            0x00064c         0x4e build/default/production/src/init_gpio.o
+                  0x00064c                  _Init_GPIO
+ .text            0x00069a         0x2a build/default/production/src/init_timer.o
+                  0x00069a                  _Init_TIMER
 
-.init.delay32     0x000770         0x1c
- .init.delay32    0x000770         0x1c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
-                  0x000770                  ___delay32
+.init.delay32     0x0006c4         0x1c
+ .init.delay32    0x0006c4         0x1c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x0006c4                  ___delay32
 
-.dinit            0x00078c         0x16
- .dinit           0x00078c         0x16 data_init
+.dinit            0x0006e0         0x16
+ .dinit           0x0006e0         0x16 data_init
 
-.text             0x0007a2          0x8
- .text            0x0007a2          0x8 build/default/production/src/main.o
-                  0x0007a2                  _main
+.text             0x0006f6          0xc
+ .text            0x0006f6          0xc build/default/production/src/main.o
+                  0x0006f6                  _main
