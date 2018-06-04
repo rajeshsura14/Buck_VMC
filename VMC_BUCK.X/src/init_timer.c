@@ -24,7 +24,6 @@
  */
 #include <xc.h> /* include processor files - each processor file is guarded. */
 #include "init_timer.h"
-
 /*
  =======================================================================================================================
     Module Preprocessor Constants ;
@@ -53,10 +52,10 @@ void Init_TIMER(void)
 	T1CONbits.TCKPS = 0b000;	/* Select 1:1 Prescaler */
 	TMR1 = 0x00;	/* Clear timer register */
 	PR1 = TIMER_PERIOD_COUNT;	/* Load the period value */
-	IPC0bits.T1IP = 0x02;		/* Set Timer 1 Interrupt Priority Level */
+	IPC0bits.T1IP = 0x01;		/* Set Timer 1 Interrupt Priority Level */
 	IFS0bits.T1IF = 0;			/* Clear Timer 1 Interrupt Flag */
-	IEC0bits.T1IE = 0;			/* Enable Timer1 interrupt */ /*Timer Interrupt is disabled */
-	T1CONbits.TON = 0;			/* Start Timer */ 
+	IEC0bits.T1IE = 1;			/* Enable Timer1 interrupt */ 
+	T1CONbits.TON = 1;			/* Start Timer */ 
 }
 
 /* END OF FUNCTIONS */

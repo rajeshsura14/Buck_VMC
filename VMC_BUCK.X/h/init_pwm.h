@@ -41,6 +41,7 @@
 * Includes
 *******************************************************************************/
 #include <xc.h> // include processor files - each processor file is guarded.
+#include "top_level.h"
 #define FOSC       120000000UL         /*This is the desired value of Fpll*/
 #define FCY         60000000UL
 #include <libpic30.h>
@@ -51,13 +52,11 @@
 
 #define CLEAR 0
 #define SET 1
-#define SWITCH_FREQUENCY 100000
-#define ACLK 119760000
-#define PTPERVALUE (int)((8*ACLK/1)/SWITCH_FREQUENCY)
+
 
 //Dead time parameters
-#define DEADT_PERCENT 2
-#define DEADT_COUNTS  (int)((DEADT_PERCENT/100)*PTPERVALUE)
+#define DEADT_PERCENT 1
+#define DEADT_COUNTS  (int)(DEADT_PERCENT*PTPERVALUE/100)
 
 
 /******************************************************************************

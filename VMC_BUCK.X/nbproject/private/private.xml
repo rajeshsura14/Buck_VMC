@@ -17,9 +17,12 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/innerve/5%20KVA%20Project/revision2/Board3/Jan/Jan2/code_cleanup-c4a315296cdedddb903aea0a67b22a5126aa8fff/Charger_Code_Jan2.X/src/control.c</file>
-            <file>file:/E:/innerve/5%20KVA%20Project/revision2/Board3/Jan/Jan2/code_cleanup-c4a315296cdedddb903aea0a67b22a5126aa8fff/Charger_Code_Jan2.X/h/compensator.h</file>
-            <file>file:/E:/innerve/5%20KVA%20Project/revision2/Board3/Jan/Jan2/code_cleanup-c4a315296cdedddb903aea0a67b22a5126aa8fff/Charger_Code_Jan2.X/src/main.c</file>
+            <file>file:/G:/IPS/Projects/Workareas/Binvy/4%20Design%20&amp;%20Development/3%20Software/Codes/Cloud_Code/Buck_VMC/VMC_BUCK.X/src/low_pri_interrupts.c</file>
+            <file>file:/G:/IPS/Projects/Workareas/Binvy/4%20Design%20&amp;%20Development/3%20Software/Codes/Cloud_Code/Buck_VMC/VMC_BUCK.X/h/low_pri_interrupts.h</file>
+            <file>file:/G:/IPS/Projects/Workareas/Binvy/4%20Design%20&amp;%20Development/3%20Software/Codes/Cloud_Code/Buck_VMC/VMC_BUCK.X/h/global.h</file>
+            <file>file:/G:/IPS/Projects/Workareas/Binvy/4%20Design%20&amp;%20Development/3%20Software/Codes/Cloud_Code/Buck_VMC/VMC_BUCK.X/src/control.c</file>
+            <file>file:/G:/IPS/Projects/Workareas/Binvy/4%20Design%20&amp;%20Development/3%20Software/Codes/Cloud_Code/Buck_VMC/VMC_BUCK.X/h/top_level.h</file>
+            <file>file:/G:/IPS/Projects/Workareas/Binvy/4%20Design%20&amp;%20Development/3%20Software/Codes/Cloud_Code/Buck_VMC/VMC_BUCK.X/h/init_pwm.h</file>
         </group>
     </open-files>
 </project-private>

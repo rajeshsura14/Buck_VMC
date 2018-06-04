@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=src/lcd_display.c src/main.c src/control.c src/configurationbits.c src/lcd.c src/init_uart.c src/init_adc.c src/init_osc.c src/init_pwm.c src/init_timer.c src/init_gpio.c src/C_source_template.c
+SOURCEFILES_QUOTED_IF_SPACED=src/lcd_display.c src/main.c src/control.c src/low_pri_interrupts.c src/configurationbits.c src/lcd.c src/init_uart.c src/init_adc.c src/init_osc.c src/init_pwm.c src/init_timer.c src/init_gpio.c src/C_source_template.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/lcd_display.o ${OBJECTDIR}/src/main.o ${OBJECTDIR}/src/control.o ${OBJECTDIR}/src/configurationbits.o ${OBJECTDIR}/src/lcd.o ${OBJECTDIR}/src/init_uart.o ${OBJECTDIR}/src/init_adc.o ${OBJECTDIR}/src/init_osc.o ${OBJECTDIR}/src/init_pwm.o ${OBJECTDIR}/src/init_timer.o ${OBJECTDIR}/src/init_gpio.o ${OBJECTDIR}/src/C_source_template.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/src/lcd_display.o.d ${OBJECTDIR}/src/main.o.d ${OBJECTDIR}/src/control.o.d ${OBJECTDIR}/src/configurationbits.o.d ${OBJECTDIR}/src/lcd.o.d ${OBJECTDIR}/src/init_uart.o.d ${OBJECTDIR}/src/init_adc.o.d ${OBJECTDIR}/src/init_osc.o.d ${OBJECTDIR}/src/init_pwm.o.d ${OBJECTDIR}/src/init_timer.o.d ${OBJECTDIR}/src/init_gpio.o.d ${OBJECTDIR}/src/C_source_template.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/lcd_display.o ${OBJECTDIR}/src/main.o ${OBJECTDIR}/src/control.o ${OBJECTDIR}/src/low_pri_interrupts.o ${OBJECTDIR}/src/configurationbits.o ${OBJECTDIR}/src/lcd.o ${OBJECTDIR}/src/init_uart.o ${OBJECTDIR}/src/init_adc.o ${OBJECTDIR}/src/init_osc.o ${OBJECTDIR}/src/init_pwm.o ${OBJECTDIR}/src/init_timer.o ${OBJECTDIR}/src/init_gpio.o ${OBJECTDIR}/src/C_source_template.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/src/lcd_display.o.d ${OBJECTDIR}/src/main.o.d ${OBJECTDIR}/src/control.o.d ${OBJECTDIR}/src/low_pri_interrupts.o.d ${OBJECTDIR}/src/configurationbits.o.d ${OBJECTDIR}/src/lcd.o.d ${OBJECTDIR}/src/init_uart.o.d ${OBJECTDIR}/src/init_adc.o.d ${OBJECTDIR}/src/init_osc.o.d ${OBJECTDIR}/src/init_pwm.o.d ${OBJECTDIR}/src/init_timer.o.d ${OBJECTDIR}/src/init_gpio.o.d ${OBJECTDIR}/src/C_source_template.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/src/lcd_display.o ${OBJECTDIR}/src/main.o ${OBJECTDIR}/src/control.o ${OBJECTDIR}/src/configurationbits.o ${OBJECTDIR}/src/lcd.o ${OBJECTDIR}/src/init_uart.o ${OBJECTDIR}/src/init_adc.o ${OBJECTDIR}/src/init_osc.o ${OBJECTDIR}/src/init_pwm.o ${OBJECTDIR}/src/init_timer.o ${OBJECTDIR}/src/init_gpio.o ${OBJECTDIR}/src/C_source_template.o
+OBJECTFILES=${OBJECTDIR}/src/lcd_display.o ${OBJECTDIR}/src/main.o ${OBJECTDIR}/src/control.o ${OBJECTDIR}/src/low_pri_interrupts.o ${OBJECTDIR}/src/configurationbits.o ${OBJECTDIR}/src/lcd.o ${OBJECTDIR}/src/init_uart.o ${OBJECTDIR}/src/init_adc.o ${OBJECTDIR}/src/init_osc.o ${OBJECTDIR}/src/init_pwm.o ${OBJECTDIR}/src/init_timer.o ${OBJECTDIR}/src/init_gpio.o ${OBJECTDIR}/src/C_source_template.o
 
 # Source Files
-SOURCEFILES=src/lcd_display.c src/main.c src/control.c src/configurationbits.c src/lcd.c src/init_uart.c src/init_adc.c src/init_osc.c src/init_pwm.c src/init_timer.c src/init_gpio.c src/C_source_template.c
+SOURCEFILES=src/lcd_display.c src/main.c src/control.c src/low_pri_interrupts.c src/configurationbits.c src/lcd.c src/init_uart.c src/init_adc.c src/init_osc.c src/init_pwm.c src/init_timer.c src/init_gpio.c src/C_source_template.c
 
 
 CFLAGS=
@@ -89,8 +89,8 @@ ifneq ($(INFORMATION_MESSAGE), )
 endif
 	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/VMC_BUCK.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
-MP_PROCESSOR_OPTION=33EP16GS506
-MP_LINKER_FILE_OPTION=,--script=p33EP16GS506.gld
+MP_PROCESSOR_OPTION=33EP16GS504
+MP_LINKER_FILE_OPTION=,--script=p33EP16GS504.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
@@ -114,6 +114,13 @@ ${OBJECTDIR}/src/control.o: src/control.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/src/control.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  src/control.c  -o ${OBJECTDIR}/src/control.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/control.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -I"h" -I"src" -O0 -I"h" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/src/control.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/low_pri_interrupts.o: src/low_pri_interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/low_pri_interrupts.o.d 
+	@${RM} ${OBJECTDIR}/src/low_pri_interrupts.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/low_pri_interrupts.c  -o ${OBJECTDIR}/src/low_pri_interrupts.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/low_pri_interrupts.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -I"h" -I"src" -O0 -I"h" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/low_pri_interrupts.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/src/configurationbits.o: src/configurationbits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/src" 
@@ -199,6 +206,13 @@ ${OBJECTDIR}/src/control.o: src/control.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/src/control.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  src/control.c  -o ${OBJECTDIR}/src/control.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/control.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -I"h" -I"src" -O0 -I"h" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/src/control.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/low_pri_interrupts.o: src/low_pri_interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/low_pri_interrupts.o.d 
+	@${RM} ${OBJECTDIR}/src/low_pri_interrupts.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/low_pri_interrupts.c  -o ${OBJECTDIR}/src/low_pri_interrupts.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/low_pri_interrupts.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -I"h" -I"src" -O0 -I"h" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/low_pri_interrupts.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/src/configurationbits.o: src/configurationbits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/src" 

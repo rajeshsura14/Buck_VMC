@@ -76,7 +76,7 @@ extern "C" {
 //#define                         //Vcap
 //#define                         //Gate_Psw_DIG
 //#define                         //PWM_Buck_Diode
-//#define                         //RX
+#define Test            _RB14     //RX
 //#define                         //TX
 //#define                         //NotAssigned
 //#define                         //NotAssigned

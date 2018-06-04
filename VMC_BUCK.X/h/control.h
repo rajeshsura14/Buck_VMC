@@ -41,20 +41,20 @@
 * Includes
 *******************************************************************************/
 #include <xc.h> // include processor files - each processor file is guarded.
-#include "init_adc.h"
+#include "init_pwm.h"
+#include "init_gpio.h"
+#include "top_level.h"
+#include "global.h"
+
 /******************************************************************************
 * Preprocessor Constants
 *******************************************************************************/
-#define LATCHOUT_TIME 0.0001
-#define LATCHOUT_TIME_COUNTS (int16_t)(LATCHOUT_TIME * INTERRUPT_FREQ)//
 
-#define RESET_LCD_TIME 1
-#define MAX_COUNTS     10000
-#define MAX_COUNTS_TIME  (float)(MAX_COUNTS *1.0 / INTERRUPT_FREQ )
-#define RESET_LCD_LOOP_COUNTS (int)(RESET_LCD_TIME/MAX_COUNTS_TIME)
 
-#define MAINS_SWOVER_TIME_mS  2.5
-#define MAINS_SWOVER_TIME_COUNTS (int)(MAINS_SWOVER_TIME_mS*1000*0.000001*INTERRUPT_FREQ)   //
+
+// Calculations 
+
+
 
 /******************************************************************************
 * Configuration Constants
@@ -67,32 +67,36 @@
 /******************************************************************************
 * Typedefs
 *******************************************************************************/
+#define SOFT_START 0
+#define MODE_HANDOVER 1
 
-typedef struct
-{
-		uint8_t v_mains_sense    : 1;
-		uint8_t lcd_reset        : 1;
-		uint8_t sc_shutdown      : 1;
-		uint8_t over_temp        : 1;
-		uint8_t batt_ov          : 1;
-		uint8_t v_dc_link        : 1;
-		uint8_t precharge_relay  : 1;
-		uint8_t initiate_latchout: 1;
-		uint8_t mains_off        : 1;
-		uint8_t short_circuit    : 1;
-		uint8_t reset            : 1;
-		uint8_t charger_on       : 1;
-		uint8_t spare_flag_3     : 1;
-		uint8_t spare_flag_2     : 1;
-		uint8_t spare_flag_1     : 1;
-		uint8_t spare_flag_0     : 1;
+#define SOFT_START_STEP   ((1000 * PTPERVALUE/SWITCH_FREQUENCY)/SOFTSTART_TIME_ms)
 
-}flags_t ;
+#define OPENLOOP_DUTY  (int)((OPENLOOP_DUTYP)*(PTPERVALUE/100))
+
+#define V_OUT_ADC_GAIN 1228
+#define V_OUT_SENSE_GAIN (float)(0.05)
+#define V_OUT_SENSE_OP_AMP_GAIN 1
+#define V_OUT_SENSE_CHANNEL_GAIN (int)(V_OUT_ADC_GAIN * V_OUT_SENSE_GAIN * V_OUT_SENSE_OP_AMP_GAIN)
+#define V_OUT_OV_COUNT (int)(V_OUT_SENSE_CHANNEL_GAIN* V_OUT_OV_LIMIT)
+
+#define V_IN_ADC_GAIN 1228
+#define V_IN_SENSE_GAIN (float)(0.05)
+#define V_IN_SENSE_OP_AMP_GAIN 1
+#define V_IN_SENSE_CHANNEL_GAIN (int)(V_IN_ADC_GAIN * V_IN_SENSE_GAIN * V_IN_SENSE_OP_AMP_GAIN)
+#define V_IN_OV_COUNT (int)(V_IN_SENSE_CHANNEL_GAIN * V_IN_OV_LIMIT)
+
+#define V_OUT_REF_COUNT (int)( V_OUT_REF * V_OUT_SENSE_CHANNEL_GAIN)
+
+/* VMC defines*/
+
+
+
+
 /******************************************************************************
 * Variables
 *******************************************************************************/
 
-extern flags_t sys_flags_t;
 
 /******************************************************************************
 * Function Prototypes

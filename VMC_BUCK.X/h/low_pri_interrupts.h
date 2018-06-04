@@ -28,24 +28,34 @@
 * 07/12/2017  1.0.0   Rajesh Sura   Initial Release.
 *
 *******************************************************************************/
-/** @file TODO: MODULE.h
- *  @brief This module TODO: WHAT DO I DO?
+/** @file control: CONTROL.h
+ *  @brief This module control: WHAT DO I DO?
  *
  *  This is the header file for the definition TODO: MORE ABOUT ME!
  */
 //TODO: UPDATE MACRO BELOW
-#ifndef ADC_H_
-#define ADC_H_
+#ifndef LOW_PRI_INTERRUPTS_H_
+#define LOW_PRI_INTERRUPTS_H_
 
 /******************************************************************************
 * Includes
 *******************************************************************************/
 #include <xc.h> // include processor files - each processor file is guarded.
-#include <stdint.h>
-
+#include "init_gpio.h"
+#include "top_level.h"
+#include "global.h"
 /******************************************************************************
 * Preprocessor Constants
 *******************************************************************************/
+#define STEP_SYS_ON_CMND_KDB 0.01 // Key debounce for Sys_ON in seconds
+#define STEP_REF_CMND_KDB    0.01 // Key debounce for Voltage Reference Change in seconds
+#define STEP_LOAD_CMND_KDB   0.01 // Key debounce for Load Reference Change in seconds
+
+
+// Calculations 
+#define STEP_SYS_ON_CMND_KDB_COUNTS  (int)(STEP_SYS_ON_CMND_KDB * SWITCH_FREQUENCY)
+#define STEP_REF_CMND_KDB_COUNTS  (int)(STEP_REF_CMND_KDB * SWITCH_FREQUENCY)
+#define STEP_LOAD_CMND_KDB_COUNTS (int)(STEP_LOAD_CMND_KDB * SWITCH_FREQUENCY)
 
 
 /******************************************************************************
@@ -60,10 +70,10 @@
 * Typedefs
 *******************************************************************************/
 
+
 /******************************************************************************
 * Variables
 *******************************************************************************/
-
 
 
 /******************************************************************************
@@ -73,8 +83,7 @@
 extern "C"{
 #endif
 
-void EnableAndCalibrate(void );
-void ADC_Samp_Conv(void);
+
 
 #ifdef __cplusplus
 } // extern "C"

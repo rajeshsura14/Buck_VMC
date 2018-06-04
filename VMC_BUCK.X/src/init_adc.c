@@ -86,8 +86,8 @@ void ADC_Samp_Conv(void)
 	ADCON2Lbits.SHRADCS = 0;	/* 2 source clock periods */
 	ADCON1Hbits.SHRRES = 3;		/* 12 bit resolution */
 	ADCON2Hbits.SHRSAMC = 15;
-	ADMOD1Lbits.SIGN16 = 0;		/* AN16/RD2 */
-	ADMOD1Lbits.DIFF16 = 0;		/* AN16/RD2 */
+	ADMOD0Lbits.SIGN4 = 0;		/* AN4/RB9 */
+	ADMOD0Lbits.DIFF4 = 0;		/* AN4/RB9 */
 
 	/*
 	 * ADMOD1Lbits. ;
@@ -162,17 +162,16 @@ void ADC_Samp_Conv(void)
 	_ADCAN1IE = 0;              /* clear interrupt flag for AN1 */
 
 	/* Configure and enable ADC interrupts. */
-	ADIELbits.IE2 = 0;          /* enable interrupt for AN11 */
-	_ADCAN2IF = 0;              /* clear interrupt flag for AN11 */
-	_ADCAN2IE = 0;              /* clear interrupt flag for AN11 */
+	ADIELbits.IE2 = 0;          /* enable interrupt for AN2 */
+	_ADCAN2IF = 0;              /* clear interrupt flag for AN2 */
+	_ADCAN2IE = 1;              /* clear interrupt flag for AN 2*/
+    _ADCAN2IP = 7;              /* Highest Interrupt Priority Enabled*/
 
 	/* Configure and enable ADC interrupts. */
 	ADIELbits.IE3 = 1;          /* enable interrupt for AN3 */
 	_ADCAN3IF = 0;              /* clear interrupt flag for AN3 */
 	_ADCAN3IE = 1;              /* clear interrupt flag for AN3 */
-	_ADCAN3IP = 7;
-
-
+	_ADCAN3IP = 6;              /* 2nd Highest Priority */
 
 	/*
 	 * Setting trigger sources for all cores ;
@@ -184,7 +183,6 @@ void ADC_Samp_Conv(void)
 	ADTRIG0Hbits.TRGSRC2 = 7;	/* PWM Generator 3 primary trigger for Core2 */
 	ADTRIG0Hbits.TRGSRC3 = 7;	/* PWM Generator 3 primary trigger for Core3 */
 	ADTRIG1Lbits.TRGSRC4= 17;   /* PWM Generator 3 primary trigger for Shared Core */
-	_ADCAN4IP = 6;
 }
 
 /*

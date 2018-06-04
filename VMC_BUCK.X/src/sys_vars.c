@@ -1,4 +1,4 @@
-/*$T indentinput.c GC 1.140 12/13/17 19:43:01 */
+/*$T indentinput.c GC 1.140 12/13/17 19:41:49 */
 
 /*
  * Title : Filename : Author : Rajesh Sura Origin Date : 07/12/2017 Version :
@@ -19,14 +19,12 @@
  * copies or substantial portions of the Template. ;
  * SOURCE REVISION LOG Date Version Author Description 07/12/2017 1.0.0 Rajesh
  * Sura Initial Release. ;
- * @file TODO: MODULE.c @brief This is the source file for ;
+ * @file control: CONTROL.c @brief This is the source file for ;
  * Include
  */
 #include <xc.h> /* include processor files - each processor file is guarded. */
-#include <stdio.h>
 #include <stdint.h>
-#include "main.h"
-
+#include "sys_vars.h"
 
 /*
  * Module Preprocessor Constants ;
@@ -36,42 +34,28 @@
  */
 
 
+/* FLAGS */
+f_mode mode = {0,0,0,0,0,0,0,0};
+
 
 /*
- =======================================================================================================================
-    Function Prototypes ;
-    Function Definitions ;
-    TODO: UPDATE AND COPY THESE FOR EACH NON_TRIVIAL FUNCTION ;
-    Function:: Dio_Init() ;
-    \b Description: This function is used to initialize the Dio based on the configuration table defined in dio_cfg
-    module. PRE-CONDITION: Configuration table needs to populated (sizeof > 0) POST-CONDITION: A constant pointer to
-    the first member of the configuration table will be returned. @return A pointer to the configuration table. \b
-    Example Example: @code const Dio_ConfigType *DioConfig = Dio_GetConfig();
-    Dio_Init(DioConfig);
-    @endcode @see Dio_Init <br><b> - HISTORY OF CHANGES - </b> <table align="left" style="width:800px"> <tr><td> Date
-    </td><td> Software Version </td><td> Initials </td><td> Description </td></tr> <tr><td> 09/01/2015 </td><td> 0.5.0
-    </td><td> JWB </td><td> Interface Created </td></tr> </table><br><br> <hr>
- =======================================================================================================================
+ * Function Prototypes ;
+ * Function Definitions ;
+ * TODO: UPDATE AND COPY THESE FOR EACH NON_TRIVIAL FUNCTION ;
+ * Function : Dio_Init() ;
+ * \b Description: This function is used to initialize the Dio based on the
+ * configuration table defined in dio_cfg module. PRE-CONDITION: Configuration
+ * table needs to populated (sizeof > 0) POST-CONDITION: A constant pointer to the
+ * first member of the configuration table will be returned. @return A pointer to
+ * the configuration table. \b Example Example: @code const Dio_ConfigType
+ * DioConfig = Dio_GetConfig();
+ * Dio_Init(DioConfig);
+ * @endcode @see Dio_Init <br><b> - HISTORY OF CHANGES - </b> <table align="left"
+ * style="width:800px"> <tr><td> Date </td><td> Software Version </td><td>
+ * Initials </td><td> Description </td></tr> <tr><td> 09/01/2015 </td><td> 0.5.0
+ * </td><td> JWB </td><td> Interface Created </td></tr> </table><br><br> <hr
  */
-
-
-int main(void)
-{
-	Init_OSC();
-	Init_GPIO();
-    Init_PWM();
-    Init_ADC();
-    Init_TIMER();
-	//Init_UART();
-	//Init_LCD();
-    
-    
-            
-	while(1)
-	{		
-           Reset = 0;
-	}
-	return 0;
-}
+mode.fixed_duty = 1;
+mode.voltage_mode = 0;
 
 /* END OF FUNCTIONS */

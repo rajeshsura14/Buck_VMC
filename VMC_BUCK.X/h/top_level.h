@@ -28,25 +28,23 @@
 * 07/12/2017  1.0.0   Rajesh Sura   Initial Release.
 *
 *******************************************************************************/
-/** @file TODO: MODULE.h
- *  @brief This module TODO: WHAT DO I DO?
+/** @file control: CONTROL.h
+ *  @brief This module control: WHAT DO I DO?
  *
  *  This is the header file for the definition TODO: MORE ABOUT ME!
  */
 //TODO: UPDATE MACRO BELOW
-#ifndef ADC_H_
-#define ADC_H_
+#ifndef TOP_LEVEL_H_
+#define TOP_LEVEL_H_
 
 /******************************************************************************
 * Includes
 *******************************************************************************/
 #include <xc.h> // include processor files - each processor file is guarded.
-#include <stdint.h>
 
 /******************************************************************************
 * Preprocessor Constants
 *******************************************************************************/
-
 
 /******************************************************************************
 * Configuration Constants
@@ -59,6 +57,28 @@
 /******************************************************************************
 * Typedefs
 *******************************************************************************/
+#define SWITCH_FREQUENCY 100000
+#define ACLK 119760000
+#define PTPERVALUE ((8*ACLK/1)/SWITCH_FREQUENCY)
+
+#define OPENLOOP 0
+#define VMC      1
+#define ACMC     2
+#define PCMC     3
+
+#define CONTROL_METHOD OPENLOOP
+#define OPENLOOP_DUTYP 30
+
+#define SOFTSTART_TIME_ms       10
+
+#define V_OUT_OV_LIMIT 62
+#define V_IN_OV_LIMIT  62
+
+#define V_OUT_REF 40
+
+#define KP_VMC 1
+#define KI_VMC 6666
+
 
 /******************************************************************************
 * Variables
@@ -73,8 +93,7 @@
 extern "C"{
 #endif
 
-void EnableAndCalibrate(void );
-void ADC_Samp_Conv(void);
+
 
 #ifdef __cplusplus
 } // extern "C"

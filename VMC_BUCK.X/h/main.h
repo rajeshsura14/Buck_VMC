@@ -48,6 +48,8 @@
 #include "init_uart.h"
 #include "uart_comm.h"
 #include "init_timer.h"
+#include "init_gpio.h"
+#include "top_level.h"
 /******************************************************************************
 * Preprocessor Constants
 *******************************************************************************/
@@ -82,10 +84,6 @@
 /******************************************************************************
 * Variables
 *******************************************************************************/
-extern int16_t V_Mains_Sense_Method;
-extern int8_t Entry_After_Reset;
-extern int8_t Control_Method;
-extern int16_t  MainsVoltage ;
 
 
 /******************************************************************************

@@ -48,7 +48,7 @@
  * FPOR ;
  * FICD
  */
-#pragma config ICS = PGD3			/* ICD Communication Channel Select bits (Communicate on PGEC1 and PGED1) */
+#pragma config ICS = PGD1			/* ICD Communication Channel Select bits (Communicate on PGEC1 and PGED1) */
 #pragma config JTAGEN = OFF			/* JTAG Enable bit (JTAG is disabled) */
 #pragma config BTSWP = OFF			/* BOOTSWP Instruction Enable/Disable bit (BOOTSWP instruction is disabled) */
 

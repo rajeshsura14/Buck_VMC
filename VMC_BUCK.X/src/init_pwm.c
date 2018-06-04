@@ -76,16 +76,15 @@ int Init_PWM(void)
 	IOCON3bits.PMOD = 0b00;         /*PWM I/O pin pair is in the Complementary PWM Output mode*/
 	 
 	FCLCON3bits.FLTMOD = 0b11;		/* Fault input is disabled */
-	ALTDTR3 = DEADT_COUNTS;         /* Deadtime value is  */
-	DTR3 = DEADT_COUNTS;            /* Deadtime value is  */
+	ALTDTR3 = DEADT_COUNTS;         /* Deadtime value is  2 percent*/
+	DTR3 = DEADT_COUNTS;            /* Deadtime value is  2 percent */
 
 	PTPER = PTPERVALUE;
 	PDC3 = 100;								 					 
 
-	TRGCON3bits.TRGSTRT = 2;
-	TRGCON3bits.TRGDIV = 1;
-
-	PHASE3 = PTPER;		
+	TRGCON3bits.TRGSTRT = 2;        /*000010 = Wait 2 PWM cycles before generating the first trigger event after the module is enabled*/
+	TRGCON3bits.TRGDIV = 0;         /*0000 = Trigger output for every trigger event*/
+		
 	TRIG3 = PDC3 >> 1;	/* ADCAN3 trigger point */
 
 //	/* PWM3 current limit mode configuration */

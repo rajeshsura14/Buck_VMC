@@ -107,7 +107,7 @@ void Init_GPIO(void)
     							    	//PGEC1
 _ANSC4	=	0	;	_TRISC4	=	0	;	//Step_Load
 _ANSC5	=	0	;	_TRISC5	=	0	;	//Step_Ref
-_ANSC6	=	0	;	_TRISC6	=	1	;	//Reset
+_ANSC6	=	0	;	_TRISC6	=	0	;	//Reset
 				    _TRISC3 =	1	;	//-SC_Fault
 							        	//Supply
 							        	//Vcap

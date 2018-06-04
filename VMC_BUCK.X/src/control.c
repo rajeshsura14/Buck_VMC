@@ -25,7 +25,6 @@
 #include <xc.h> /* include processor files - each processor file is guarded. */
 #include <stdint.h>
 #include "control.h"
-#include "init_adc.h"
 
 /*
  * Module Preprocessor Constants ;
@@ -33,93 +32,22 @@
  * Module Typedefs ;
  * Module Variable Definitions
  */
-int16_t		VBatt_Sense;
-uint16_t	V_DC_Link_sense;
-int16_t		IBatt_SR_Sense, duty = 0;
 
-int16_t		Iact_int;
+int16_t duty = 0, duty_temp = 0;
+int16_t duty_demand = 0;
 
-int16_t		Vbatt_avg_counter = 0;
-int16_t		Vbatt_avg = 0, Vbatt_sum = 0;
-int16_t		Iref_out = 0;
+int16_t v_out_sense = 0, v_out_scaled = 0;
+int16_t v_in_sense  = 0, v_in_scaled = 0;
+int16_t i_out_sense = 0, i_out_scaled = 0;
+int16_t i_in_sense  = 0, i_in_scaled = 0; 
 
-int16_t		SS_Counter = 0;
-int16_t		V_DC_Link_int = 0;
-int16_t		V_DC_Link_sense_sum = 0;
-int16_t		V_DC_Link_sense_avg = 0;
-int8_t		V_DC_Link_Counter = 0;
-int16_t		V_DC_Link_Bypass_Counter = 0;
-
-int16_t		V_Mains_Sense = 0;
-int16_t		V_Mains_Sense_int = 0;
-int16_t		V_Mains_Sense_Temp = 0;
-int16_t		V_Mains_Sense_Counter = 0;
-int16_t		V_Mains_Sense_Temp_Scaled = 0;
-uint16_t	V_Mains_Sense_Temp_Scaled_Sum = 0;
-int16_t		V_Mains_Sense_Peak = 0;
-int16_t		V_Mains_Sense_Bypass_Counter = 0;
-int16_t		V_Mains_Sense_Avg = 0;
-int16_t		V_Mains_Sense_Remnant_divisor = 0;
-int16_t		V_Mains_Sense_Peak_Calc_Part1 = 0;
-int16_t		V_Mains_Sense_Peak_Calc_Part2 = 0;
-int16_t		V_Mains_Sense_RMS_Calc_Part1 = 0;
-int16_t		V_Mains_Sense_RMS = 0;
-int16_t		V_Mains_Swover_Time_Counter = 0;
-int16_t		Temp_Sense = 0;
-int16_t		Over_Temp_Shutdown_counter = 0;
-
-int16_t		ChgOnCounter = 0, ChgOffCounter = 0;
+//VMC variables
+int16_t v_out_error = 0;
+int16_t duty_p_n = 0;
+int16_t duty_i_n = 0, duty_i_n_1 = 0;
 
 
-int16_t		VDC_Link_Ref_Int = V_DCLink_MAXNUMBER_SET;
 
-int16_t		Entry_After_Reset_Counter = 0;
-int16_t		Entry_After_Relay_On_Counter = 0;
-
-
-int16_t		SS_Iref_Clamp = 0;
-int16_t		SS_Iref_Clamp_int = 0;
-int16_t		Delta_SS_Iref_Clamp_int = 0;
-int16_t		Delta_duty_out = 0;
-int16_t		Delta_Iref_out_int = 0;
-int16_t		duty_out = 0;
-
-/* Voltage Hysteresis// */
-int16_t		VBatt_Sense_int = 0;
-int16_t		VBatt_Calib = 0;
-int16_t		Delta_Vref_int = 0;
-int16_t		Delta_Iref_int = 0;
-int16_t		Volatage_Hysterisis_Counter = 0;
-
-int16_t		Firstpass_counter = 0;
-int16_t		Latch_out_timer_counter = 0;
-int16_t		Reset_lcd_counter = 0;
-int16_t		Reset_lcd_loop_counter = 0;
-
-/* LATCHOUT VARIABLES */
-int16_t		Latchout_initiate_wait_count_i = 0, Latchout_initiate_wait_count_j = 0, SC_Counts = 0;
-
-/* FLAGS */
-flags_t sys_flags_t = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-
-/*
- * Function Prototypes ;
- * Function Definitions ;
- * TODO: UPDATE AND COPY THESE FOR EACH NON_TRIVIAL FUNCTION ;
- * Function : Dio_Init() ;
- * \b Description: This function is used to initialize the Dio based on the
- * configuration table defined in dio_cfg module. PRE-CONDITION: Configuration
- * table needs to populated (sizeof > 0) POST-CONDITION: A constant pointer to the
- * first member of the configuration table will be returned. @return A pointer to
- * the configuration table. \b Example Example: @code const Dio_ConfigType
- * DioConfig = Dio_GetConfig();
- * Dio_Init(DioConfig);
- * @endcode @see Dio_Init <br><b> - HISTORY OF CHANGES - </b> <table align="left"
- * style="width:800px"> <tr><td> Date </td><td> Software Version </td><td>
- * Initials </td><td> Description </td></tr> <tr><td> 09/01/2015 </td><td> 0.5.0
- * </td><td> JWB </td><td> Interface Created </td></tr> </table><br><br> <hr
- */
 void __attribute__ ((interrupt, no_auto_psv))
 /*
  =======================================================================================================================
@@ -127,7 +55,78 @@ void __attribute__ ((interrupt, no_auto_psv))
  */
 _ADCAN3Interrupt(void)
 {
-	_ADCAN3IF = 0;	/* clear interrupt flag */
+      Reset = 1;
+    v_out_sense  = ADCBUF0;
+    v_in_sense   = ADCBUF1;
+    i_out_sense  = ADCBUF2;
+    i_in_sense   = ADCBUF3;
+    
+    
+    
+    
+    if(sf.sf_bits.f_system_on)//if(sf.f_system_on) //
+    {
+//        if (v_in_sense > V_IN_OV_COUNT) {sf.sf_bits.f_input_OV = 1;}
+//    else {sf.sf_bits.f_input_OV = 0;}
+//    
+//    if (v_out_sense> V_OUT_OV_COUNT) { sf.sf_bits.f_output_OV = 1;}
+//    else {sf.sf_bits.f_output_OV = 0;}
+    
+     //scaled sense values
+    v_out_scaled = (v_out_sense<<3);
+    v_in_scaled  = (v_in_sense<<3);
+    i_out_scaled = (i_out_sense<<3);
+    i_in_scaled  = (i_in_sense<<3);
+    
+    switch(CONTROL_METHOD)
+    {
+        case OPENLOOP:      
+            duty_demand = OPENLOOP_DUTY;
+            break;
+        case VMC:
+            v_out_error = ( V_OUT_REF_COUNT - v_out_scaled);
+            //duty_p_n = ((__builtin_mulss(v_out_error, )) >> 15)          
+            break;
+        case ACMC:
+            break;
+        case PCMC:
+            break;
+    }
+    
+   
+ switch(sf.sf_bits.f_soft_start )//   switch(sf.f_soft_start )
+    {
+        case SOFT_START:
+            if(duty_temp < duty_demand)
+            {
+                duty_temp = duty_temp + SOFT_START_STEP;
+                duty_demand = duty_temp;
+             
+            }
+            else
+            {   
+                sf.sf_bits.f_soft_start = 1;
+                duty_temp = 0;
+                duty_demand = duty_demand;
+            }         
+            break;
+        case MODE_HANDOVER:
+            duty_demand = duty_demand;
+            break;         
+    }
+  
+    
+ PDC3= duty_demand;
+    }
+    else
+    {
+        sf.sf_all = 0;
+        PDC3= 0;
+    }
+    
+    
+_ADCAN3IF = 0;	/* clear interrupt flag */
+    Reset = 0;
 }
 
 /* END OF FUNCTIONS */

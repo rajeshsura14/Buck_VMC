@@ -44,14 +44,12 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "init_gpio.h"
-#include "uart_comm.h"
-#include "init_uart.h"
 #include "main.h"
 /******************************************************************************
 * Preprocessor Constants
 *******************************************************************************/
 #define MIPS                60
-#define TIMER_FREQ_kHz      10
+#define TIMER_FREQ_kHz      100
 #define TIMER_PERIOD_us     (1000/TIMER_FREQ_kHz)
 #define TIMER_PERIOD_COUNT  (TIMER_PERIOD_us*MIPS)
 
@@ -68,19 +66,7 @@
 *******************************************************************************/
 typedef struct
     {
-        uint16_t    dcdc            :1;     // DCDC On/Off bit
-        uint16_t    inverter        :1;     // Inverter On/Off bit
-        uint16_t    fan             :1;     // Fan On/Off bit
-        uint16_t    dcUV            :1;     // DC Under Voltage
-        uint16_t    oLShutdown      :1;     // Over Load Shutdown
-        uint16_t    oL              :1;     // Over Load
-        uint16_t    oLWarning       :1;     // Over Load Warning
-        uint16_t    batOV           :1;     // Battery Over Voltage
-        uint16_t    batUVShutdown   :1;     // Battery Under Voltage Shutdown
-        uint16_t    batUV           :1;     // Battery Under Voltage
-        uint16_t    batUVWarning    :1;     // Battery Under Voltage Warning
-        uint16_t    sc              :1;     // Short Circuit
-        uint16_t    empty           :4;
+    
     } flagStruct_t;
 typedef union {
 	     flagStruct_t bit;

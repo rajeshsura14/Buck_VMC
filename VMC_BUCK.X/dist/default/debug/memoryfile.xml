@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/VMC_BUCK.X.production.elf">
+  <executable name="dist/default/debug/VMC_BUCK.X.debug.elf">
     <memory name="data">
       <units>bytes</units>
       <length>2048</length>
-      <used>50</used>
-      <free>1998</free>
+      <used>130</used>
+      <free>1918</free>
     </memory>
     <memory name="program">
       <units>bytes</units>

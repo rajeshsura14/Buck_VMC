@@ -28,25 +28,23 @@
 * 07/12/2017  1.0.0   Rajesh Sura   Initial Release.
 *
 *******************************************************************************/
-/** @file TODO: MODULE.h
- *  @brief This module TODO: WHAT DO I DO?
+/** @file control: CONTROL.h
+ *  @brief This module control: WHAT DO I DO?
  *
  *  This is the header file for the definition TODO: MORE ABOUT ME!
  */
 //TODO: UPDATE MACRO BELOW
-#ifndef ADC_H_
-#define ADC_H_
+#ifndef GLOBAL_H_
+#define GLOBAL_H_
 
 /******************************************************************************
 * Includes
 *******************************************************************************/
 #include <xc.h> // include processor files - each processor file is guarded.
-#include <stdint.h>
 
 /******************************************************************************
 * Preprocessor Constants
 *******************************************************************************/
-
 
 /******************************************************************************
 * Configuration Constants
@@ -59,6 +57,37 @@
 /******************************************************************************
 * Typedefs
 *******************************************************************************/
+
+
+typedef struct
+{
+    int16_t f_system_on   :1;
+    int16_t f_ref_change  :1;
+    int16_t f_load_change :1;
+    int16_t f_soft_start  :1;  
+    int16_t f_input_OV    :1;
+    int16_t f_output_OV   :1;
+    int16_t f_load_OL     :1;
+    int16_t f_dummy       :9;
+}flags;
+
+//extern flags sf;
+//extern int8_t test;
+
+typedef union 
+{
+    flags sf_bits;
+    int16_t sf_all;
+}system_flags;
+
+extern system_flags sf;
+
+typedef struct 
+{   int16_t entry;
+    int16_t exit;   
+}kdb_ctr;
+
+
 
 /******************************************************************************
 * Variables
@@ -73,8 +102,7 @@
 extern "C"{
 #endif
 
-void EnableAndCalibrate(void );
-void ADC_Samp_Conv(void);
+
 
 #ifdef __cplusplus
 } // extern "C"

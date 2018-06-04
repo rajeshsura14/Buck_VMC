@@ -14,6 +14,9 @@
           <itemPath>h/lcd_display.h</itemPath>
           <itemPath>h/main.h</itemPath>
           <itemPath>h/control.h</itemPath>
+          <itemPath>h/global.h</itemPath>
+          <itemPath>h/low_pri_interrupts.h</itemPath>
+          <itemPath>h/top_level.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f4" displayName="drivers" projectFiles="true">
           <itemPath>h/lcd.h</itemPath>
@@ -40,6 +43,7 @@
         <itemPath>src/lcd_display.c</itemPath>
         <itemPath>src/main.c</itemPath>
         <itemPath>src/control.c</itemPath>
+        <itemPath>src/low_pri_interrupts.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="config_bits" projectFiles="true">
         <itemPath>src/configurationbits.c</itemPath>
@@ -77,7 +81,7 @@
     <conf name="default" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>dsPIC33EP16GS506</targetDevice>
+        <targetDevice>dsPIC33EP16GS504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>

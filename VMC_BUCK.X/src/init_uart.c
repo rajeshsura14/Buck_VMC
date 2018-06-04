@@ -49,7 +49,7 @@ void Init_UART(void)
 {
 	TRISBbits.TRISB4 = 0;	/* RB4-RP36 */
 
-	TRISCbits.TRISC15 = 1;	/* RC15-RP63 */
+//	TRISCbits.TRISC15 = 1;	/* RC15-RP63 */
 
 	/* Configure UART PINS */
 	RPINR18bits.U1RXR = 63; /* Pin31 of device (RP63,RC15) = U1RX */

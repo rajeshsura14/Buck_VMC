@@ -28,21 +28,19 @@
 * 07/12/2017  1.0.0   Rajesh Sura   Initial Release.
 *
 *******************************************************************************/
-/** @file TODO: MODULE.h
- *  @brief This module TODO: WHAT DO I DO?
+/** @file control: CONTROL.h
+ *  @brief This module control: WHAT DO I DO?
  *
  *  This is the header file for the definition TODO: MORE ABOUT ME!
  */
 //TODO: UPDATE MACRO BELOW
-#ifndef ADC_H_
-#define ADC_H_
+#ifndef SYS_VARS_H_
+#define SYS_VARS_H_
 
 /******************************************************************************
 * Includes
 *******************************************************************************/
 #include <xc.h> // include processor files - each processor file is guarded.
-#include <stdint.h>
-
 /******************************************************************************
 * Preprocessor Constants
 *******************************************************************************/
@@ -60,11 +58,16 @@
 * Typedefs
 *******************************************************************************/
 
+typedef struct
+{
+		uint8_t fixed_duty       : 1;
+		uint8_t voltage_mode     : 1;
+}f_mode ;
 /******************************************************************************
 * Variables
 *******************************************************************************/
 
-
+extern f_mode mode;
 
 /******************************************************************************
 * Function Prototypes
@@ -73,8 +76,7 @@
 extern "C"{
 #endif
 
-void EnableAndCalibrate(void );
-void ADC_Samp_Conv(void);
+
 
 #ifdef __cplusplus
 } // extern "C"
